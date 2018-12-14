@@ -1,3 +1,4 @@
+
 const ctx = document.querySelector('#chart').getContext('2d');
 
 let valuesArray = [];
@@ -52,8 +53,9 @@ async function getValues() {
         console.log(SampleValues);
         SampleValues.forEach(value => {
             // console.log(value.Value);
-            // console.log(value.TimeStamp);
-            timeArray.push(simplifyTime(value.TimeStamp));
+            console.log(value.TimeStamp);
+            // timeArray.push(simplifyTime(value.TimeStamp));
+            timeArray.push(value.TimeStamp);
             // valuesArray.push(Math.ceil(value.Value));
             valuesArray.push((parseInt(value.Value)).toFixed(0));
             plotChart();

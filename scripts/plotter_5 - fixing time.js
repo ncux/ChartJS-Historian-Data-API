@@ -1,3 +1,4 @@
+
 const ctx = document.querySelector('#chart').getContext('2d');
 
 let valuesArray = [];
@@ -52,7 +53,7 @@ async function getValues() {
         console.log(SampleValues);
         SampleValues.forEach(value => {
             // console.log(value.Value);
-            // console.log(value.TimeStamp);
+            console.log(value.TimeStamp);
             timeArray.push(simplifyTime(value.TimeStamp));
             // valuesArray.push(Math.ceil(value.Value));
             valuesArray.push((parseInt(value.Value)).toFixed(0));
@@ -64,11 +65,7 @@ async function getValues() {
 }
 
 function simplifyTime(timestamp) {
-    // const date = new Date('2018-10-02T11:30:07.211Z');
-    // const milliseconds = date.getTime();
-    // const seconds = Math.floor(date.getTime() / 1000);
-    const date = new Date(timestamp);
-    return Math.floor(date.getTime() / 1000);
+    return timestamp.slice(0, 19);
 }
 
 function plotChart() {
