@@ -61,9 +61,7 @@ async function getValues() {
         // console.log(historianData);
         let timeStampsAndValues = historianData.Data[0].Samples;
         console.log(timeStampsAndValues);
-        timeStampsAndValues.forEach(value => {
-            // console.log(value.Value);
-            // console.log(value.TimeStamp);
+        timeStampsAndValues.forEach(value => {            
             timeArray.push(simplifyTime(value.TimeStamp));
             // valuesArray.push(Math.ceil(value.Value));
             valuesArray.push((parseInt(value.Value)).toFixed(0));
