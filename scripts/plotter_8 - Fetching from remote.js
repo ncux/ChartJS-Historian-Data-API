@@ -1,3 +1,5 @@
+
+
 let API = {
     access_token: "",
     tagsUrl: 'https://dev.sealu.net:4433/api/v1/forward?url=/historian-rest-api/v1/tagslist',
@@ -51,42 +53,38 @@ let options = {
 
 
 
+
 async function getValues() {
     try {
         console.log('button clicked');
-
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', `${API.url}`, true);
-        xhr.setRequestHeader('Authorization', 'Bearer ' + API.access_token);
-        // xhr.open('GET', `./data/WIN-9DBOGP80695.Simulation00052.json`, true);
-
-        xhr.onload = async () => {
-            if(xhr.status === 200) {
-                console.log(xhr.responseText);
-                let sampleValues = await JSON.parse(xhr.responseText);
-                console.log(sampleValues);
-                sampleValues.forEach(value => {
-                    // console.log(value.Value);
-                    // console.log(value.TimeStamp);
-                    timeArray.push(simplifyTime(value.TimeStamp));
-                    // valuesArray.push(Math.ceil(value.Value));
-                    valuesArray.push((parseInt(value.Value)).toFixed(0));
-                    plotChart();
-                })
-
-            }
+        // let data = await fetch('./data/WIN-9DBOGP80695.Simulation00052 - OG.json');
+        const options = {
+            method: 'GET',
+            withCredentials: true,
+            credentials: 'include',
+            headers: new Headers({ Authorization: 'Bearer ' + API.access_token })
         };
-
-        xhr.send();
-
+        let data = await fetch(API.url, options);
+        let historianData = await data.json();
+        // console.log(historianData);
+        let timeStampsAndValues = historianData.Data[0].Samples;
+        console.log(timeStampsAndValues);
+        timeStampsAndValues.forEach(value => {            
+            timeArray.push(simplifyTime(value.TimeStamp));
+            // valuesArray.push(Math.ceil(value.Value));
+            valuesArray.push((parseInt(value.Value)).toFixed(0));
+            plotChart();
+        })
     } catch (e) {
         console.log(e);
     }
 }
 
+
 function simplifyTime(timestamp) {
     return timestamp.slice(0, 19);
 }
+
 
 function plotChart() {
     const chart = new Chart(ctx, {
