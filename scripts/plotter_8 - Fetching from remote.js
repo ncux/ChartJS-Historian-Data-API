@@ -67,7 +67,7 @@ async function getValues() {
         let data = await fetch(API.url, options);
         let historianData = await data.json();
         // console.log(historianData);
-        let timeStampsAndValues = historianData.Data[0].Samples;
+        let timeStampsAndValues = historianData['Data'][0].Samples;
         console.log(timeStampsAndValues);
         timeStampsAndValues.forEach(value => {            
             timeArray.push(simplifyTime(value.TimeStamp));

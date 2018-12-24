@@ -60,7 +60,7 @@ async function getValues() {
         let data = await fetch('./data/WIN-9DBOGP80695.Simulation00052 - OG.json');
         let historianData = await data.json();
         // console.log(historianData);
-        let timeStampsAndValues = historianData.Data[0].Samples;
+        let timeStampsAndValues = historianData['Data'][0].Samples;
         console.log(timeStampsAndValues);
         timeStampsAndValues.forEach(value => {            
             timeArray.push(simplifyTime(value.TimeStamp));
